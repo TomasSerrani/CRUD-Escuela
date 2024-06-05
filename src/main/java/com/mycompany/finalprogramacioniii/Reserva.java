@@ -6,6 +6,7 @@ import java.sql.CallableStatement;
 import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
@@ -62,7 +63,10 @@ public class Reserva {
         this.estadoReserva = estadoReserva;
     }
     //constructor
-
+    public Reserva(){
+        
+    };
+    
     public Reserva(int numReserva, int id, Date fechaReserva, String estadoReserva) {
         this.numReserva = numReserva;
         this.id = id;
@@ -85,8 +89,8 @@ public class Reserva {
             JOptionPane.showMessageDialog(null, "Número de reserva inválido");
             return;
         }
-        
         setEstadoReserva(estadoReserva.getText());
+        
         Conexion objetoConexion = new Conexion();
         
         String consulta = ("insert into reservas (numReserva, fechaReserva, estadoReserva) values (?,?,?);");
@@ -103,44 +107,58 @@ public class Reserva {
                         JOptionPane.showMessageDialog(null, "No se insertó correctamente la reserva."+e.toString());
         }
     }
-      public void MostrarReservas(JTable paramTablaReservas){
+    public void MostrarReservas(JTable paramTablaReservas){
             
-            Conexion objetoConexion = new Conexion();
+        Conexion objetoConexion = new Conexion();
             
-            DefaultTableModel modelo = new DefaultTableModel();
+        DefaultTableModel modelo = new DefaultTableModel();
             
-            TableRowSorter<TableModel> OrdenarTabla = new TableRowSorter<TableModel>(modelo);
-            paramTablaReservas.setRowSorter(OrdenarTabla);
+        TableRowSorter<TableModel> OrdenarTabla = new TableRowSorter<TableModel>(modelo);
+        paramTablaReservas.setRowSorter(OrdenarTabla);
             
-            String sql = "";
+        String sql = "";
             
-            modelo.addColumn("Número");
-            modelo.addColumn("Fecha");
-            modelo.addColumn("Estado");
+        modelo.addColumn("Número");
+        modelo.addColumn("Fecha");
+        modelo.addColumn("Estado");
             
-            paramTablaReservas.setModel(modelo);
+        paramTablaReservas.setModel(modelo);
             
-            sql = "select   from ;";
+        sql = "select   from ;";
             
-            String[] datos = new String[3];
-            Statement st;
-            try {
-                st = objetoConexion.estableConexion().createStatement();
-                ResultSet rs = st.executeQuery(sql);
-                while(rs.next()){
-                    datos[0]=rs.getString(2);
-                    datos[1]=rs.getString(3);
-                    datos[2]=rs.getString(4);
+        String[] datos = new String[3];
+        Statement st;
+        try {
+            st = objetoConexion.estableConexion().createStatement();
+            ResultSet rs = st.executeQuery(sql);
+            while(rs.next()){
+                datos[0]=rs.getString(2);
+                datos[1]=rs.getString(3);
+                datos[2]=rs.getString(4);
                     
-                    modelo.addRow(datos);
-                }
+                modelo.addRow(datos);
+            }
                 
-                    paramTablaReservas.setModel(modelo);
-                
+            paramTablaReservas.setModel(modelo);
+           
             } catch (Exception e) {
                     JOptionPane.showMessageDialog(null, "No se pudo mostrar los registros, error: "+e.toString());
             }
                     
         }
-    
+    public void SeleccionarReservas(JTable paramTablaReservas, JTextField paramID, JTextField paramNumero, JTextField paramFecha,JTextField paramEstado){
+        try {
+            int fila = paramTablaReservas.getSelectedRow();
+            if(fila >= 0){
+                paramID.setText((paramTablaReservas.getValueAt(fila, 0).toString()));
+                paramNumero.setText((paramTablaReservas.getValueAt(fila, 1).toString()));
+                paramFecha.setText((paramTablaReservas.getValueAt(fila, 2).toString()));
+                paramEstado.setText((paramTablaReservas.getValueAt(fila, 3).toString()));
+            }else{
+                JOptionPane.showMessageDialog(null, "Fila no seleccionada");
+            }   
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error de selección, error: "+e.toString());
+        }   
+    } 
 }

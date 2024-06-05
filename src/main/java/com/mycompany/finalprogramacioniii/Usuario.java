@@ -3,7 +3,6 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package com.mycompany.finalprogramacioniii;
-import com.mysql.cj.xdevapi.Result;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
@@ -155,6 +154,9 @@ public class Usuario {
         }
         return usuario;
     }
-   
+   public void MostrarReservasUsuarios(JTable paramTablaReservas, JTextField numReserva){
+       int numeroReserva= Integer.parseInt(numReserva.getText()); 
+       
+   }
 }
 
