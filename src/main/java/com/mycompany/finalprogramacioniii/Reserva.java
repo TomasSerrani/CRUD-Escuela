@@ -116,7 +116,7 @@ public class Reserva {
         TableRowSorter<TableModel> OrdenarTabla = new TableRowSorter<TableModel>(modelo);
         paramTablaReservas.setRowSorter(OrdenarTabla);
             
-        String sql = "";
+        String sql;
             
         modelo.addColumn("Número");
         modelo.addColumn("Fecha");
@@ -124,7 +124,7 @@ public class Reserva {
             
         paramTablaReservas.setModel(modelo);
             
-        sql = "select   from ;";
+        sql = "select * from reservas;";
             
         String[] datos = new String[3];
         Statement st;
