@@ -3,6 +3,7 @@
  */
 
 package com.mycompany.finalprogramacioniii;
+import javax.swing.SwingUtilities;
 
 /**
  *
@@ -11,6 +12,8 @@ package com.mycompany.finalprogramacioniii;
 public class Inicio {
 
     public static void main(String[] args) {
-        
+        SwingUtilities.invokeLater(Interfaz_InicioSesionUsuario::crearYMostrarGUI);
+        Interfaz_InicioSesionUsuario IISU = new Interfaz_InicioSesionUsuario();
+        IISU.setVisible(true);
     }
 }
