@@ -12,8 +12,8 @@ import javax.swing.SwingUtilities;
 public class Inicio {
 
     public static void main(String[] args) {
-        SwingUtilities.invokeLater(Interfaz_InicioSesionUsuario::crearYMostrarGUI);
-        Interfaz_InicioSesionUsuario IISU = new Interfaz_InicioSesionUsuario();
+        SwingUtilities.invokeLater(Interfaz::crearYMostrarGUI);
+        Interfaz IISU = new Interfaz();
         IISU.setVisible(true);
     }
 }
